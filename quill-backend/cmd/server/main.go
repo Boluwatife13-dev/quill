@@ -4,11 +4,11 @@ package main
 import (
 	"log"
 
+	"github.com/gin-gonic/gin"
+
 	"quill-backend/config"
 	"quill-backend/database"
 	"quill-backend/routes"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -21,9 +21,9 @@ func main() {
 
 	router := gin.Default()
 
-	routes.SetupRoutes(router, db)
+	routes.SetupRoutes(router)
 
 	log.Println("Quill server running on port", cfg.Port)
+
 	router.Run(":" + cfg.Port)
 }
-
