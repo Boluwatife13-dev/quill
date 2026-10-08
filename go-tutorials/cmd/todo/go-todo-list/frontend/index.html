@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Taskly - Todo List</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div>
+                <p class="label">PERSONAL TASK MANAGER</p>
+                <h1>My Tasks</h1>
+                <p class="subtitle">
+                    Organize your day, one task at a time.
+                </p>
+            </div>
+
+            <div class="task-count">
+                <span id="taskCount">0</span>
+                <small>Tasks</small>
+            </div>
+        </header>
+
+
+        <!-- Add Task -->
+        <section class="add-section">
+
+            <form id="todoForm">
+
+                <input
+                    type="text"
+                    id="todoInput"
+                    placeholder="What do you need to do?"
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit">
+                    Add Task
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Tasks -->
+        <section class="tasks-section">
+
+            <div class="section-heading">
+                <h2>Today's Tasks</h2>
+                <span id="taskStatus">0 tasks</span>
+            </div>
+
+            <div id="todoList" class="todo-list">
+
+                <div class="empty-state">
+                    <div class="empty-icon">✓</div>
+
+                    <h3>No tasks yet</h3>
+
+                    <p>
+                        Add your first task to get started.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        const form = document.getElementById("todoForm");
+        const input = document.getElementById("todoInput");
+        const todoList = document.getElementById("todoList");
+        const taskCount = document.getElementById("taskCount");
+        const taskStatus = document.getElementById("taskStatus");
+
+        const API_URL = "http://localhost:8000/api/todos";
+
+
+        // Get all tasks
+        async function loadTodos() {
+
+            try {
+
+                const response = await fetch(API_URL);
+
+                const todos = await response.json();
+
+                displayTodos(todos);
+
+            } catch (error) {
+
+                console.error("Could not load tasks:", error);
+
+                todoList.innerHTML = `
+                    <div class="error-state">
+                        <h3>Unable to connect</h3>
+                        <p>Make sure the Go server is running.</p>
+                    </div>
+                `;
+            }
+        }
+
+
+        // Display tasks
+        function displayTodos(todos) {
+
+            taskCount.textContent = todos.length;
+
+            taskStatus.textContent =
+                todos.length === 1
+                    ? "1 task"
+                    : `${todos.length} tasks`;
+
+
+            if (todos.length === 0) {
+
+                todoList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">✓</div>
+
+                        <h3>No tasks yet</h3>
+
+                        <p>
+                            Add your first task to get started.
+                        </p>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            todoList.innerHTML = "";
+
+
+            todos.forEach(todo => {
+
+                const task = document.createElement("div");
+
+                task.className =
+                    todo.completed
+                        ? "todo-item completed"
+                        : "todo-item";
+
+
+                task.innerHTML = `
+
+                    <div class="task-left">
+
+                        <button
+                            class="complete-button"
+                            onclick="completeTodo(${todo.id})"
+                            ${todo.completed ? "disabled" : ""}
+                        >
+                            ${todo.completed ? "✓" : ""}
+                        </button>
+
+                        <div class="task-info">
+
+                            <span class="task-title">
+                                ${escapeHTML(todo.title)}
+                            </span>
+
+                            <span class="task-label">
+                                ${todo.completed ? "Completed" : "Pending"}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="delete-button"
+                        onclick="deleteTodo(${todo.id})"
+                        title="Delete task"
+                    >
+                        ×
+                    </button>
+
+                `;
+
+                todoList.appendChild(task);
+
+            });
+        }
+
+
+        // Add task
+        form.addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const title = input.value.trim();
+
+            if (!title) {
+                return;
+            }
+
+
+            try {
+
+                const response = await fetch(API_URL, {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        title: title
+                    })
+
+                });
+
+
+                if (!response.ok) {
+                    throw new Error("Failed to add task");
+                }
+
+
+                input.value = "";
+
+                input.focus();
+
+                loadTodos();
+
+            } catch (error) {
+
+                console.error("Could not add task:", error);
+
+            }
+
+        });
+
+
+        // Complete task
+        async function completeTodo(id) {
+
+            try {
+
+                await fetch(`${API_URL}?id=${id}`, {
+                    method: "PUT"
+                });
+
+                loadTodos();
+
+            } catch (error) {
+
+                console.error("Could not complete task:", error);
+
+            }
+
+        }
+
+
+        // Delete task
+        async function deleteTodo(id) {
+
+            try {
+
+                await fetch(`${API_URL}?id=${id}`, {
+                    method: "DELETE"
+                });
+
+                loadTodos();
+
+            } catch (error) {
+
+                console.error("Could not delete task:", error);
+
+            }
+
+        }
+
+
+        // Prevent HTML from being inserted as a task
+        function escapeHTML(text) {
+
+            const div = document.createElement("div");
+
+            div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+
+
+        // Load tasks when page opens
+        loadTodos();
+
+    </script>
+
+</body>
+</html>

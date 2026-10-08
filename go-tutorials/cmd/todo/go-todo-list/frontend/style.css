@@ -1,0 +1,913 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+   body {
+    min-height: 100vh;
+
+    font-family:
+        "Segoe UI",
+        Inter,
+        Arial,
+        sans-serif;
+
+    color: #172033;
+
+    padding: 50px 20px;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(99, 102, 241, 0.9),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(139, 92, 246, 0.75),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 90%,
+            rgba(37, 99, 235, 0.8),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #111827,
+            #1e1b4b,
+            #172554
+        );
+
+    background-attachment: fixed;
+}
+
+
+/* =========================================
+   MAIN APP
+========================================= */
+
+.app {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.app-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 30px;
+}
+
+
+.label {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: #6366f1;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+}
+
+
+h1 {
+    margin-bottom: 10px;
+
+    color: #172033;
+
+    font-size: 46px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    letter-spacing: -1.5px;
+}
+
+
+.subtitle {
+    color: #7b8496;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   TASK COUNT
+========================================= */
+
+.task-count {
+    width: 100px;
+
+    height: 100px;
+
+    flex-shrink: 0;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+
+    color: white;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-shadow:
+        0 18px 35px rgba(79, 70, 229, 0.25);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.task-count::before {
+    content: "";
+
+    position: absolute;
+
+    width: 75px;
+
+    height: 75px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    top: -25px;
+
+    right: -20px;
+}
+
+
+.task-count span {
+    position: relative;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+.task-count small {
+    position: relative;
+
+    margin-top: 7px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================
+   ADD TASK SECTION
+========================================= */
+
+.add-section {
+    width: 100%;
+
+    margin-bottom: 25px;
+
+    padding: 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    box-shadow:
+        0 15px 45px rgba(15, 23, 42, 0.07);
+
+    backdrop-filter: blur(15px);
+}
+
+
+/*
+   Your HTML uses:
+
+   <form id="todoForm">
+
+   So we style #todoForm directly.
+*/
+
+#todoForm {
+    display: flex;
+
+    width: 100%;
+
+    gap: 12px;
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+#todoInput {
+    width: 100%;
+
+    height: 56px;
+
+    flex: 1;
+
+    padding: 0 18px;
+
+    border: 1px solid #e2e6ee;
+
+    border-radius: 14px;
+
+    outline: none;
+
+    background: #f8f9fc;
+
+    color: #172033;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    transition:
+        0.2s ease;
+}
+
+
+#todoInput::placeholder {
+    color: #a0a7b5;
+}
+
+
+#todoInput:focus {
+    border-color: #6366f1;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(99, 102, 241, 0.10);
+}
+
+
+/* =========================================
+   ADD BUTTON
+========================================= */
+
+#todoForm button[type="submit"] {
+    height: 56px;
+
+    flex-shrink: 0;
+
+    padding: 0 28px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 22px rgba(79, 70, 229, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+#todoForm button[type="submit"]:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 28px rgba(79, 70, 229, 0.28);
+}
+
+
+#todoForm button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   TASKS SECTION
+========================================= */
+
+.tasks-section {
+    width: 100%;
+
+    padding: 27px;
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    box-shadow:
+        0 15px 45px rgba(15, 23, 42, 0.07);
+
+    backdrop-filter: blur(15px);
+}
+
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.section-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 20px;
+
+    margin-bottom: 16px;
+
+    border-bottom: 1px solid #edf0f5;
+}
+
+
+.section-heading h2 {
+    color: #172033;
+
+    font-size: 19px;
+
+    font-weight: 750;
+}
+
+
+.section-heading span {
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    background: #f0f1ff;
+
+    color: #6366f1;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   TODO LIST
+========================================= */
+
+.todo-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+/* =========================================
+   TODO ITEM
+========================================= */
+
+.todo-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    width: 100%;
+
+    padding: 17px;
+
+    border: 1px solid #edf0f5;
+
+    border-radius: 16px;
+
+    background: #fafbfe;
+
+    transition:
+        0.2s ease;
+}
+
+
+.todo-item:hover {
+    transform: translateY(-2px);
+
+    border-color: #dfe3ec;
+
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================
+   TASK LEFT SIDE
+========================================= */
+
+.task-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+/* =========================================
+   COMPLETE BUTTON
+========================================= */
+
+.complete-button {
+    width: 28px;
+
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 2px solid #d2d7e2;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        0.2s ease;
+}
+
+
+.complete-button:hover {
+    border-color: #6366f1;
+
+    background: #f0f1ff;
+
+    transform: scale(1.08);
+}
+
+
+/* Completed task */
+
+.completed .complete-button {
+    border-color: #22c55e;
+
+    background: #22c55e;
+
+    cursor: default;
+}
+
+
+/* =========================================
+   TASK INFORMATION
+========================================= */
+
+.task-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    min-width: 0;
+}
+
+
+.task-title {
+    color: #293449;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    word-break: break-word;
+}
+
+
+.task-label {
+    color: #9aa3b2;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+/* Completed task */
+
+.completed .task-title {
+    color: #9ba3b2;
+
+    text-decoration: line-through;
+}
+
+
+.completed .task-label {
+    color: #22a85a;
+}
+
+
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.delete-button {
+    width: 37px;
+
+    height: 37px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #fff1f2;
+
+    color: #ef4444;
+
+    font-size: 22px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        0.2s ease;
+}
+
+
+.delete-button:hover {
+    background: #fee2e2;
+
+    transform: scale(1.08);
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+    padding: 65px 20px;
+
+    text-align: center;
+}
+
+
+.empty-icon {
+    width: 65px;
+
+    height: 65px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef0ff,
+            #e6e8ff
+        );
+
+    color: #6366f1;
+
+    font-size: 27px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 25px rgba(99, 102, 241, 0.08);
+}
+
+
+.empty-state h3 {
+    margin-bottom: 8px;
+
+    color: #293449;
+
+    font-size: 18px;
+}
+
+
+.empty-state p {
+    color: #929baa;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   ERROR STATE
+========================================= */
+
+.error-state {
+    padding: 55px 20px;
+
+    text-align: center;
+}
+
+
+.error-state h3 {
+    margin-bottom: 8px;
+
+    color: #ef4444;
+
+    font-size: 18px;
+}
+
+
+.error-state p {
+    color: #929baa;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 30px 15px;
+    }
+
+
+    .app-header {
+        gap: 20px;
+    }
+
+
+    h1 {
+        font-size: 36px;
+    }
+
+
+    .task-count {
+        width: 80px;
+
+        height: 80px;
+
+        border-radius: 22px;
+    }
+
+
+    .task-count span {
+        font-size: 24px;
+    }
+
+
+    .add-section {
+        padding: 18px;
+    }
+
+
+    .tasks-section {
+        padding: 21px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 520px) {
+
+    body {
+        padding: 22px 12px;
+    }
+
+
+    .app-header {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .label {
+        font-size: 9px;
+
+        letter-spacing: 1.8px;
+    }
+
+
+    h1 {
+        font-size: 31px;
+
+        letter-spacing: -0.8px;
+    }
+
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+
+    .task-count {
+        width: 68px;
+
+        height: 68px;
+
+        border-radius: 18px;
+    }
+
+
+    .task-count span {
+        font-size: 20px;
+    }
+
+
+    .task-count small {
+        font-size: 9px;
+    }
+
+
+    /* Stack input and button */
+
+    #todoForm {
+        flex-direction: column;
+    }
+
+
+    #todoInput {
+        width: 100%;
+    }
+
+
+    #todoForm button[type="submit"] {
+        width: 100%;
+    }
+
+
+    .tasks-section {
+        padding: 17px;
+    }
+
+
+    .section-heading h2 {
+        font-size: 17px;
+    }
+
+
+    .section-heading span {
+        padding: 6px 9px;
+
+        font-size: 10px;
+    }
+
+
+    .todo-item {
+        padding: 14px;
+    }
+
+
+    .task-left {
+        gap: 10px;
+    }
+
+
+    .task-title {
+        font-size: 14px;
+    }
+
+
+    .delete-button {
+        width: 34px;
+
+        height: 34px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+
+    .app-header {
+        flex-direction: column;
+    }
+
+
+    .task-count {
+        width: 100%;
+
+        height: 58px;
+
+        flex-direction: row;
+
+        gap: 8px;
+    }
+
+
+    .task-count span {
+        font-size: 22px;
+    }
+
+
+    .task-count small {
+        margin-top: 0;
+    }
+}

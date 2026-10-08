@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quill</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- AUTH -->
+<section id="auth">
+    <div class="auth-box">
+        <div class="logo">Q</div>
+        <h1>Quill</h1>
+        <p>Simple notes. Simple tasks.</p>
+
+        <form id="loginForm">
+            <h2>Welcome Back</h2>
+            <input id="loginEmail" type="email" placeholder="Email" required>
+            <input id="loginPassword" type="password" placeholder="Password" required>
+            <button>Login</button>
+            <p>Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+            <small id="loginMessage"></small>
+        </form>
+
+        <form id="signupForm" class="hidden">
+            <h2>Create Account</h2>
+            <input id="signupName" type="text" placeholder="Full name" required>
+            <input id="signupEmail" type="email" placeholder="Email" required>
+            <input id="signupPassword" type="password" placeholder="Password" required>
+            <button>Sign Up</button>
+            <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+            <small id="signupMessage"></small>
+        </form>
+    </div>
+</section>
+
+
+<!-- APP -->
+<section id="app" class="hidden">
+
+    <header class="topbar">
+        <div class="brand"><span>Q</span> Quill</div>
+
+        <nav>
+            <button id="notesTab">Notes</button>
+            <button id="tasksTab">To-Do</button>
+        </nav>
+
+        <div class="top-actions">
+            <button id="themeBtn">◐</button>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+
+    <div class="workspace">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <button id="newNoteBtn" class="gold">+ New Note</button>
+
+            <input id="searchNotes" type="search" placeholder="Search notes...">
+
+            <h3>NOTES</h3>
+            <button class="side-btn active" id="allNotesBtn">All Notes</button>
+            <button class="side-btn" id="recentBtn">Recent</button>
+            <button class="side-btn" id="pinnedBtn">★ Pinned</button>
+
+            <h3>TO-DO</h3>
+            <button class="side-btn" id="allTasksBtn">All Tasks</button>
+            <button class="side-btn" id="activeTasksBtn">Active</button>
+            <button class="side-btn" id="completedTasksBtn">Completed</button>
+        </aside>
+
+
+        <!-- NOTES -->
+        <aside class="notes-list">
+            <div class="list-head">
+                <h2>My Notes</h2>
+                <span id="noteCount">0</span>
+            </div>
+            <div id="noteItems"></div>
+        </aside>
+
+
+        <main>
+
+            <!-- EDITOR -->
+            <section id="editor">
+                <div class="editor-head">
+                    <input id="noteTitle" placeholder="Untitled Note">
+
+                    <div>
+                        <button id="pinBtn">☆</button>
+                        <button id="saveBtn" class="gold">Save</button>
+                        <button id="deleteBtn">Delete</button>
+                    </div>
+                </div>
+
+                <textarea id="noteContent" placeholder="Start writing..."></textarea>
+
+                <footer>
+                    <span id="status">● Saved</span>
+                    <span id="words">Words: 0</span>
+                    <span id="chars">Characters: 0</span>
+                </footer>
+            </section>
+
+
+            <!-- TODO -->
+            <section id="todo" class="hidden">
+                <div class="todo-head">
+                    <div>
+                        <small>YOUR TASKS</small>
+                        <h1>To-Do</h1>
+                    </div>
+                    <button id="addTaskBtn" class="gold">+ Add Task</button>
+                </div>
+
+                <div class="filters">
+                    <button data-filter="all" class="active">All</button>
+                    <button data-filter="active">Active</button>
+                    <button data-filter="completed">Completed</button>
+                </div>
+
+                <p id="taskCount">0 tasks</p>
+                <div id="taskItems"></div>
+            </section>
+
+        </main>
+    </div>
+
+
+    <!-- TASK MODAL -->
+    <div id="taskModal" class="modal hidden">
+        <form id="taskForm" class="modal-box">
+            <button type="button" id="closeModal" class="close">×</button>
+
+            <h2>Add Task</h2>
+
+            <input id="taskTitle" placeholder="Task title" required>
+            <textarea id="taskDescription" placeholder="Description"></textarea>
+
+            <select id="taskPriority">
+                <option>High</option>
+                <option selected>Medium</option>
+                <option>Low</option>
+            </select>
+
+            <input id="taskDate" type="date">
+            <input id="taskCategory" placeholder="Category">
+
+            <div class="modal-buttons">
+                <button type="button" id="cancelTask">Cancel</button>
+                <button class="gold">Add Task</button>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
+
